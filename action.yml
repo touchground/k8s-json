@@ -23,3 +23,5 @@ runs:
         out_json=$(echo "$json" | tr '[:upper:]' '[:lower:]' | tr '_' '-' | jq -r tostring)
         echo "content=$(echo $out_json)" >> $GITHUB_OUTPUT
       shell: bash
+env:
+  app-name: 'aggregator'
