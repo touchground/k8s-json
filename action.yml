@@ -1,0 +1,25 @@
+name: 'K8s JSON Validation and conversion '
+description: 'Validate and process JSON for Kubernetes'
+inputs:
+  jsonFilePath:
+    description: 'Path to the JSON file'
+    required: true
+outputs:
+  content:
+    description: "Processed JSON content"
+    value: ${{ steps.process.outputs.content }}
+runs:
+  using: "composite"
+  steps:
+    - id: process
+      run: |
+        json=$(cat ${{ inputs.jsonFilePath }})
+        if echo "$json" | jq . >/dev/null 2>&1; then
+          echo "Valid JSON format"
+        else
+          echo "Invalid JSON format"
+          exit 1
+        fi
+        out_json=$(echo "$json" | tr '[:upper:]' '[:lower:]' | tr '_' '-' | jq -r tostring)
+        echo "content=$(echo $out_json)" >> $GITHUB_OUTPUT
+      shell: bash
