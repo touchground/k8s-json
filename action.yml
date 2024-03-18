@@ -13,7 +13,7 @@ runs:
   steps:
     - id: process
       run: |
-        json=$(cat ${{ inputs.jsonFilePath }})
+        json=$(cat ${{ inputs.jsonFilePath }} | sed "s/\${{ env.abc }}/${{ env.abc }}/g")
         if echo "$json" | jq . >/dev/null 2>&1; then
           echo "Valid JSON format"
         else
