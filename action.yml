@@ -20,6 +20,6 @@ runs:
           echo "Invalid JSON format"
           exit 1
         fi
-        out_json=$(echo "$json" | tr '[:upper:]' '[:lower:]' | tr '_' '-' | jq -r tostring | sed 's/\*/\\*/g')
+        out_json=$(echo "$json" | tr '[:upper:]' '[:lower:]' | tr '_' '-' | jq -r tostring)
         echo "content=$(echo $out_json)" >> $GITHUB_OUTPUT
       shell: bash
