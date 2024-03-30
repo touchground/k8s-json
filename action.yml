@@ -21,6 +21,6 @@ runs:
           exit 1
         fi
         # out_json=$(echo "$json" | tr '[:upper:]' '[:lower:]' | tr '_' '-' | jq -r tostring)
-        out_json=$(echo "$json" | tr '_' '-' | jq -r tostring)
+        out_json=$(echo "$json" | jq -r tostring)
         echo "content=$(echo $out_json)" >> $GITHUB_OUTPUT
       shell: bash
